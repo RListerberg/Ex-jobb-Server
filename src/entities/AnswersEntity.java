@@ -17,7 +17,7 @@ public class AnswersEntity {
 	private int answerID;
 	private String answer;
 
-	public AnswersEntity(int answerID , String answer) {
+	public AnswersEntity(int answerID, String answer) {
 		this.answer = answer;
 		this.answerID = answerID;
 	}

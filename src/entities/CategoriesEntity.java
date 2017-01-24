@@ -1,9 +1,13 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * Created by robin on 2017-01-24.
@@ -16,13 +20,20 @@ public class CategoriesEntity {
 
 	private int categoryID;
 	private String category;
+	@OneToMany
+	private List<QuestionsEntity> questionsList;
 
 	public CategoriesEntity(int categoryID, String category) {
 		this.category = category;
 		this.categoryID = categoryID;
+		this.questionsList = new ArrayList<>();
 	}
 
 	public CategoriesEntity() {
+	}
+
+	public void addQuestion(QuestionsEntity question) {
+		questionsList.add(question);
 	}
 
 	public int getCategoryID() {
