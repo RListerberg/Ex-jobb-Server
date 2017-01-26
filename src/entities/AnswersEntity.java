@@ -13,7 +13,6 @@ public class AnswersEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
 	private int answerID;
 	private String answer;
 

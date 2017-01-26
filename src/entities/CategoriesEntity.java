@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 /**
  * Created by robin on 2017-01-24.
@@ -20,8 +20,9 @@ public class CategoriesEntity {
 
 	private int categoryID;
 	private String category;
-	@OneToMany
+	@ManyToMany
 	private List<QuestionsEntity> questionsList;
+
 
 	public CategoriesEntity(int categoryID, String category) {
 		this.category = category;
