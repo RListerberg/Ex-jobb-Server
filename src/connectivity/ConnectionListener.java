@@ -20,9 +20,11 @@ public class ConnectionListener implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("Server started on port: " + serverSocket.getLocalPort());
         while (running) {
             try {
                 Socket socket = serverSocket.accept();
+                System.out.println("Someone connected, Hello " + socket.getPort());
                 new Thread(new ClientReader(socket)).start();
             } catch (IOException e) {
                 e.printStackTrace();

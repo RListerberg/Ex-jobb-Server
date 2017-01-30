@@ -11,6 +11,7 @@ import java.net.Socket;
 public class ClientReader implements Runnable {
     Socket socket;
     BufferedReader bufferedReader;
+    private boolean running = true;
 
     public ClientReader(Socket socket) throws IOException {
         this.socket = socket;
@@ -20,7 +21,11 @@ public class ClientReader implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println(socket.getPort()+": "+bufferedReader.readLine());
+            while (running) {
+                if (bufferedReader.readLine() != null) {
+                    System.out.println(socket.getPort() + ": " + bufferedReader.readLine());
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
