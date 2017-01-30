@@ -12,13 +12,23 @@ import javax.persistence.Id;
 public class AnswersEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int answerID;
 	private String answer;
+	private boolean correct;
 
-	public AnswersEntity(int answerID, String answer) {
+	public AnswersEntity(int answerID, String answer, boolean correct) {
 		this.answer = answer;
 		this.answerID = answerID;
+		this.correct = correct;
+	}
+
+	public boolean isCorrect() {
+		return correct;
+	}
+
+	public void setCorrect(boolean correct) {
+		this.correct = correct;
 	}
 
 	public AnswersEntity() {

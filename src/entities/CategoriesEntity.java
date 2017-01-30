@@ -16,7 +16,7 @@ import javax.persistence.ManyToMany;
 public class CategoriesEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private int categoryID;
 	private String category;
@@ -31,6 +31,7 @@ public class CategoriesEntity {
 	}
 
 	public CategoriesEntity() {
+		this.questionsList = new ArrayList<>();
 	}
 
 	public void addQuestion(QuestionsEntity question) {
