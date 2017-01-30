@@ -9,9 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-/**
- * Created by robin on 2017-01-24.
- */
+
 @Entity
 public class CategoriesEntity {
 

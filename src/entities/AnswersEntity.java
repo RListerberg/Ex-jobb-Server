@@ -5,9 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- * Created by robin on 2017-01-24.
- */
+
 @Entity
 public class AnswersEntity {
 

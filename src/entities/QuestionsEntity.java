@@ -11,9 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-/**
- * Created by robin on 2017-01-24.
- */
 @Entity
 public class QuestionsEntity {
 
