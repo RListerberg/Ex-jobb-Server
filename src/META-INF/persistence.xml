@@ -3,11 +3,16 @@
 
 	<persistence-unit name="NewPersistenceUnit">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>entities.AnswersEntity</class>
+		<class>entities.CategoriesEntity</class>
+		<class>entities.QuestionsEntity</class>
 		<properties>
-			<property name="eclipselink.jdbc.url" value="" />
-			<property name="eclipselink.jdbc.driver" value="" />
-			<property name="eclipselink.jdbc.user" value="" />
-			<property name="eclipselink.jdbc.password" value="" />
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+			<property name="eclipselink.ddl-generation.output-mode" value="database"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quizmaniacs" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="12345" />
 		</properties>
 	</persistence-unit>
 </persistence>
