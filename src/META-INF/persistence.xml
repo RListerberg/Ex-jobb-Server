@@ -7,8 +7,8 @@
 		<class>entities.CategoriesEntity</class>
 		<class>entities.QuestionsEntity</class>
 		<properties>
-			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
-			<property name="eclipselink.ddl-generation.output-mode" value="database"/>
+			<!--<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>-->
+			<!--<property name="eclipselink.ddl-generation.output-mode" value="database"/>-->
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quizmaniacs" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.user" value="root" />

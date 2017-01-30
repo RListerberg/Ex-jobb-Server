@@ -32,6 +32,8 @@ public class CategoriesEntity {
 		this.questionsList = new ArrayList<>();
 	}
 
+	public List<QuestionsEntity> getQuestions(){return questionsList;}
+
 	public void addQuestion(QuestionsEntity question) {
 		questionsList.add(question);
 	}

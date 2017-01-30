@@ -3,7 +3,6 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +38,8 @@ public class QuestionsEntity {
 	public void addAnswer(AnswersEntity answer) {
 		answersList.add(answer);
 	}
-	public void addCategories(CategoriesEntity category){
+
+	public void addCategories(CategoriesEntity category) {
 		categoriesList.add(category);
 	}
 
@@ -57,6 +57,22 @@ public class QuestionsEntity {
 
 	public void setQuestion(String question) {
 		this.question = question;
+	}
+
+	public List<AnswersEntity> getAnswersList() {
+		return answersList;
+	}
+
+	public void setAnswersList(List<AnswersEntity> answersList) {
+		this.answersList = answersList;
+	}
+
+	public List<CategoriesEntity> getCategoriesList() {
+		return categoriesList;
+	}
+
+	public void setCategoriesList(List<CategoriesEntity> categoriesList) {
+		this.categoriesList = categoriesList;
 	}
 
 }
