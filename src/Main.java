@@ -1,4 +1,4 @@
-import connectivity.ConnectionListener;
+import controller.Controller;
 import entities.AnswersEntity;
 import entities.CategoriesEntity;
 import entities.QuestionsEntity;
@@ -19,9 +19,9 @@ public class Main {
     CategoriesEntity category = new CategoriesEntity();
 
     public static void main(String[] args) throws IOException {
-
+        Controller controller = new Controller();
         //new Main().create();
-        new Thread(new ConnectionListener(8008)).start();
+
 
     }
 

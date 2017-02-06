@@ -1,4 +1,6 @@
-package data;
+package threads;
+
+import jdo.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,16 +9,17 @@ import java.net.Socket;
 /**
  * Created by LeoAsp on 2017-01-31.
  */
-public class ServerWriteThread implements Runnable{
+public class ClientWriteThread implements Runnable {
     private boolean running = true;
     private PrintWriter out;
+    User user;
     private String currentMessage = "";
     private String queuedMessage = "";
 
-    public ServerWriteThread(Socket socket) throws IOException {
+    public ClientWriteThread(Socket socket, User user) throws IOException {
         out = new PrintWriter(socket.getOutputStream(), true);
+        this.user = user;
     }
-
 
     public void send(String message) {
         queuedMessage = message;
@@ -37,5 +40,4 @@ public class ServerWriteThread implements Runnable{
     public void setRunning(boolean running) {
         this.running = running;
     }
-
 }
