@@ -5,5 +5,5 @@ package commands;
  */
 
 public enum CommandType {
-    SETNICK
+    SETNICK, GETCATEGORIES, SENDCATEGORIES
 }

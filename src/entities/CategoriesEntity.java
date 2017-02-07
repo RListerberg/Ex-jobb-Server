@@ -8,9 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 
 @Entity
+@NamedQueries({
+		@NamedQuery(query = "SELECT c.category FROM CategoriesEntity c ", name="getAllCategoryNames"),
+		@NamedQuery(query = "SELECT c FROM CategoriesEntity c WHERE c.category = :category", name = "getCategory")})
+
 public class CategoriesEntity {
 
 	@Id
