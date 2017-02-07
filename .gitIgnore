@@ -2,3 +2,4 @@
 lib
 quizmaniacsServer.iml
 persistence.xml
+out/
