@@ -2,15 +2,19 @@ package controller;
 
 import connectivity.ConnectionHandler;
 import connectivity.UserHandler;
+import jdo.Room;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Meister on 2017-02-06.
  */
 public class Controller {
-    ConnectionHandler connectionHandler;
-    UserHandler userHandler;
+    private ConnectionHandler connectionHandler;
+    private UserHandler userHandler;
+    private List<Room> rooms = new ArrayList<>();
 
     public Controller() throws IOException {
         this.connectionHandler = new ConnectionHandler(this);
@@ -31,5 +35,13 @@ public class Controller {
 
     public void setUserHandler(UserHandler userHandler) {
         this.userHandler = userHandler;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 }

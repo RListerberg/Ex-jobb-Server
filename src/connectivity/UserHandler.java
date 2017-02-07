@@ -4,7 +4,6 @@ import controller.Controller;
 import jdo.User;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +18,8 @@ public class UserHandler {
         this.controller = controller;
     }
 
-    public void addUser(Socket socket) throws IOException {
-        users.add(new User(socket));
+    public void addUser(User user) throws IOException {
+        users.add(user);
 
     }
 }
