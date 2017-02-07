@@ -1,6 +1,7 @@
 package threads;
 
-import data.Parser;
+import commands.CommandHandler;
+import controller.Controller;
 import jdo.User;
 
 import java.io.IOException;
@@ -12,17 +13,20 @@ import java.util.Scanner;
  * Created by LeoAsp on 2017-01-30.
  */
 public class ClientReadThread implements Runnable {
+    Controller controller;
     Socket socket;
     Scanner in;
     User user;
-    Parser parser;
+    CommandHandler commandHandler;
     private boolean running = true;
 
-    public ClientReadThread(Socket socket, User user) throws IOException {
+    public ClientReadThread(Socket socket, User user, Controller controller) throws IOException {
         this.socket = socket;
         in = new Scanner(new InputStreamReader(socket.getInputStream()));
+        this.controller = controller;
         this.user = user;
-        parser = new Parser(user);
+        commandHandler = new CommandHandler(user, controller);
+
     }
 
     @Override
@@ -32,7 +36,7 @@ public class ClientReadThread implements Runnable {
             while (in.hasNext()) {
                 incomingMessage = in.nextLine();
                 System.out.println(socket.getPort() + ": " + incomingMessage);
-                parser.parse(incomingMessage);
+                commandHandler.handle(incomingMessage);
             }
         }
     }

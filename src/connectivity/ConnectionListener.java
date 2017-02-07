@@ -1,7 +1,7 @@
 package connectivity;
 
 import controller.Controller;
-import threads.ClientReadThread;
+import jdo.User;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -28,7 +28,8 @@ public class ConnectionListener implements Runnable {
             try {
                 Socket socket = serverSocket.accept();
                 System.out.println("Someone connected, Hello " + socket.getPort());
-                controller.getUserHandler().addUser(socket);
+                User user = new User(socket, controller);
+                controller.getUserHandler().addUser(user);
             } catch (IOException e) {
                 e.printStackTrace();
             }
