@@ -1,8 +1,6 @@
 import java.io.IOException;
 
-
-import entities.CategoriesEntity;
-import jpa.JpqlCommands;
+import controller.Controller;
 
 /**
  * Created by robin on 2017-01-27.
@@ -10,9 +8,7 @@ import jpa.JpqlCommands;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		JpqlCommands commander = new JpqlCommands();
-		CategoriesEntity categoriesEntity = new CategoriesEntity();
-		System.out.println(commander.getCategory().getQuestions().get(0).getAnswersList().get(0).getAnswer());
+		Controller controller = new Controller();
 	}
 
 }
