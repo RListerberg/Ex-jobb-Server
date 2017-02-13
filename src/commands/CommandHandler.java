@@ -6,6 +6,7 @@ import java.util.List;
 
 import controller.Controller;
 import data.Parser;
+import jdo.Room;
 import jdo.User;
 import jpa.JpqlCommands;
 
@@ -14,7 +15,8 @@ import jpa.JpqlCommands;
  */
 public class CommandHandler {
     User user;
-	JpqlCommands jpqlCommands;
+    Room room;
+	JpqlCommands jpqlCommands = new JpqlCommands();
 
     Controller controller;
     Parser parser;
@@ -37,11 +39,13 @@ public class CommandHandler {
                 System.out.println(user.nickname);
                 break;
 
-//	        case GETCATEGORIES:
-//
-//	        	List categoryList = jpqlCommands.getCategories();
-//
-//	        	break;
+	        case GETCATEGORIES:
+
+                System.out.println("RECIEVED: GETCATEGORIES");
+                List categoryList = jpqlCommands.getCategoryNames();
+                System.out.println("CATEGORIES: " + categoryList);
+
+                break;
 
             case GETLOBBYACT:
                 System.out.println("RECIVED: GETLOBBYACT");

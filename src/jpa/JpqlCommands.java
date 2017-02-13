@@ -21,7 +21,7 @@ public class JpqlCommands {
 
 
 	public List getCategoryNames(){
-		List<String> categoryNamesList = new ArrayList<>();
+		List categoryNamesList = new ArrayList<>();
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("NewPersistenceUnit");
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
