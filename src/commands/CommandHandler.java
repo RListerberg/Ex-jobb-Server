@@ -38,21 +38,19 @@ public class CommandHandler {
                 user.setNickname(command.data);
                 System.out.println(user.nickname);
                 break;
-
 	        case GETCATEGORIES:
-
                 System.out.println("RECIEVED: GETCATEGORIES");
                 List categoryList = jpqlCommands.getCategoryNames();
                 System.out.println("CATEGORIES: " + categoryList);
-
                 break;
-
             case GETLOBBYACT:
                 System.out.println("RECIVED: GETLOBBYACT");
                 controller.getRooms().add(new Room("Test", 0, 4));
                 user.dataHandler.send(commandMaker.makeDrawLobbyAct(controller.getRooms()));
                 System.out.println("SENT: DRAWLOBBYACT");
                 break;
+            case CREATEROOM:
+                System.out.println("RECIEVED: CREATEROOM");
             default:
                 System.out.println("Command Type Could Not Be Resolved");
                 break;

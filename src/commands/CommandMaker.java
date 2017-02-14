@@ -1,8 +1,10 @@
 package commands;
 
 import com.google.gson.Gson;
+import jdo.client.SimpleRoom;
 import jdo.server.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,8 +23,12 @@ public class CommandMaker {
         return stringCommand;
     }
 
-    public String makeDrawLobbyAct(List<Room> roomList) {
-        Command command = new Command(CommandType.DRAWLOBBYACT, gson.toJson(roomList));
+    public String makeDrawLobbyAct(List<Room> rooms) {
+        List<SimpleRoom> simpleRooms = new ArrayList<>();
+        for (int i = 0; i < rooms.size(); i++) {
+            simpleRooms.add(new SimpleRoom(rooms.get(i)));
+        }
+        Command command = new Command(CommandType.DRAWLOBBYACT, gson.toJson(simpleRooms));
         String stringCommand = gson.toJson(command);
         System.out.println("MADE: " + stringCommand);
         return stringCommand;
