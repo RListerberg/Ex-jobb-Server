@@ -2,6 +2,7 @@ package commands;
 
 import controller.Controller;
 import data.Parser;
+import jdo.Room;
 import jdo.User;
 
 /**
@@ -30,6 +31,7 @@ public class CommandHandler {
                 break;
             case GETLOBBYACT:
                 System.out.println("RECIVED: GETLOBBYACT");
+                controller.getRooms().add(new Room("Test", 0, 4));
                 user.dataHandler.send(commandMaker.makeDrawLobbyAct(controller.getRooms()));
                 System.out.println("SENT: DRAWLOBBYACT");
                 break;
