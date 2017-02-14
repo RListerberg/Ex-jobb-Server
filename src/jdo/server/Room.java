@@ -12,9 +12,9 @@ public class Room {
     public int maxPlayers;
     public List<String> categories;
 
-    public Room(String roomName, int playersConected, int maxPlayers) {
+    public Room(String roomName, int playersConnected, int maxPlayers) {
         this.name = roomName;
-        this.connectedPlayers = playersConected;
+        this.connectedPlayers = playersConnected;
         this.maxPlayers = maxPlayers;
     }
 
