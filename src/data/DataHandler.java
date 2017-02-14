@@ -1,7 +1,7 @@
 package data;
 
 import controller.Controller;
-import jdo.User;
+import jdo.server.User;
 import threads.ClientReadThread;
 import threads.ClientWriteThread;
 

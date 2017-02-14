@@ -1,6 +1,6 @@
 package threads;
 
-import jdo.User;
+import jdo.server.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;

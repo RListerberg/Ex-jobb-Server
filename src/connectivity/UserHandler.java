@@ -1,7 +1,7 @@
 package connectivity;
 
 import controller.Controller;
-import jdo.User;
+import jdo.server.User;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package commands;
 
 import com.google.gson.Gson;
-import jdo.Room;
+import jdo.server.Room;
 
 import java.util.List;
 

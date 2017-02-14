@@ -6,8 +6,8 @@ import java.util.List;
 
 import controller.Controller;
 import data.Parser;
-import jdo.Room;
-import jdo.User;
+import jdo.server.Room;
+import jdo.server.User;
 import jpa.JpqlCommands;
 
 /**

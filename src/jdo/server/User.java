@@ -1,4 +1,4 @@
-package jdo;
+package jdo.server;
 
 import controller.Controller;
 import data.DataHandler;
@@ -15,7 +15,6 @@ public class User {
     public Socket socket;
     public DataHandler dataHandler;
     public boolean inRoom = false;
-    public Room room;
 
 
     public User(Socket socket, Controller controller) throws IOException {

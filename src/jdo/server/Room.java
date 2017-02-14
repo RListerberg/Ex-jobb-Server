@@ -1,4 +1,4 @@
-package jdo;
+package jdo.server;
 
 import java.util.List;
 
@@ -7,14 +7,15 @@ import java.util.List;
  */
 public class Room {
 
-    public String roomName;
-    public int playersConected;
+    public List<User> users;
+    public String name;
+    public int connectedPlayers;
     public int maxPlayers;
     public List<String> categories;
 
     public Room(String roomName, int playersConected, int maxPlayers) {
-        this.roomName = roomName;
-        this.playersConected = playersConected;
+        this.name = roomName;
+        this.connectedPlayers = playersConected;
         this.maxPlayers = maxPlayers;
     }
 
