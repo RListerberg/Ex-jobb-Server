@@ -16,19 +16,19 @@ public class CommandMaker {
     public CommandMaker() {
     }
 
-    public String makeSetNickCommand(String nick) {
-        Command command = new Command(CommandType.SETNICK, nick);
+    public String makeUpdateNickCommand(String nick) {
+        Command command = new Command(CommandType.UPDATENICK, nick);
         String stringCommand = gson.toJson(command);
         System.out.println("MADE: " + stringCommand);
         return stringCommand;
     }
 
-    public String makeDrawLobbyAct(List<Room> rooms) {
+    public String makeUpdateLobbyList(List<Room> rooms) {
         List<SimpleRoom> simpleRooms = new ArrayList<>();
         for (int i = 0; i < rooms.size(); i++) {
             simpleRooms.add(new SimpleRoom(rooms.get(i)));
         }
-        Command command = new Command(CommandType.DRAWLOBBYACT, gson.toJson(simpleRooms));
+        Command command = new Command(CommandType.UPDATELOBBYLIST, gson.toJson(simpleRooms));
         String stringCommand = gson.toJson(command);
         System.out.println("MADE: " + stringCommand);
         return stringCommand;
