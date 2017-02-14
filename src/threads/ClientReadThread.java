@@ -2,7 +2,7 @@ package threads;
 
 import commands.CommandHandler;
 import controller.Controller;
-import jdo.User;
+import jdo.server.User;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

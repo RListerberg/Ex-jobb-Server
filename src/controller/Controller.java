@@ -2,7 +2,7 @@ package controller;
 
 import connectivity.ConnectionHandler;
 import connectivity.UserHandler;
-import jdo.Room;
+import jdo.server.Room;
 
 import java.io.IOException;
 import java.util.ArrayList;
