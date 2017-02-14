@@ -14,7 +14,7 @@ import java.util.List;
 public class Controller {
     private ConnectionHandler connectionHandler;
     private UserHandler userHandler;
-    private List<Room> rooms = new ArrayList<>();
+    private ArrayList<Room> rooms = new ArrayList<>();
 
     public Controller() throws IOException {
         this.connectionHandler = new ConnectionHandler(this);
@@ -41,7 +41,7 @@ public class Controller {
         return rooms;
     }
 
-    public void setRooms(List<Room> rooms) {
+    public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
     }
 }
