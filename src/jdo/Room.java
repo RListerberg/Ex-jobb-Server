@@ -8,12 +8,12 @@ import java.util.List;
 public class Room {
     public User host;
     public List<User> users;
-    public List<String> categories;
+    public List<String> categoryNames;
 
-    public Room(User host, List<User> users, List<String> categories) {
+    public Room(User host, List<User> users, List<String> categoryNames) {
         this.host = host;
         this.users = users;
-        this.categories = categories;
+        this.categoryNames = categoryNames;
     }
 
     public User getHost() {
@@ -33,10 +33,10 @@ public class Room {
     }
 
     public List<String> getCategories() {
-        return categories;
+        return categoryNames;
     }
 
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
+    public void setCategories(List<String> categoryNames) {
+        this.categoryNames = categoryNames;
     }
 }

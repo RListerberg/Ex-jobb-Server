@@ -40,11 +40,9 @@ public class CommandHandler {
                 break;
 
 	        case GETCATEGORIES:
-
                 System.out.println("RECIEVED: GETCATEGORIES");
                 List categoryList = jpqlCommands.getCategoryNames();
                 System.out.println("CATEGORIES: " + categoryList);
-
                 break;
 
             case GETLOBBYACT:
@@ -55,6 +53,11 @@ public class CommandHandler {
             default:
                 System.out.println("Command Type Could Not Be Resolved");
                 break;
+
+            case CREATEROOM:
+                System.out.println("RECIEVED: CREATEROOM");
+                break;
+
 
         }
 
