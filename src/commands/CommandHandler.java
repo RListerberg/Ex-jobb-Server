@@ -1,18 +1,27 @@
 package commands;
 
+
+import java.util.List;
+
+
 import controller.Controller;
 import data.Parser;
 import jdo.Room;
 import jdo.User;
+import jpa.JpqlCommands;
 
 /**
  * Created by Meister on 2017-02-06.
  */
 public class CommandHandler {
     User user;
+    Room room;
+	JpqlCommands jpqlCommands = new JpqlCommands();
+
     Controller controller;
     Parser parser;
     CommandMaker commandMaker;
+
 
     public CommandHandler(User user, Controller controller) {
         this.controller = controller;
@@ -29,6 +38,15 @@ public class CommandHandler {
                 user.setNickname(command.data);
                 System.out.println(user.nickname);
                 break;
+
+	        case GETCATEGORIES:
+
+                System.out.println("RECIEVED: GETCATEGORIES");
+                List categoryList = jpqlCommands.getCategoryNames();
+                System.out.println("CATEGORIES: " + categoryList);
+
+                break;
+
             case GETLOBBYACT:
                 System.out.println("RECIVED: GETLOBBYACT");
                 controller.getRooms().add(new Room("Test", 0, 4));
@@ -38,6 +56,9 @@ public class CommandHandler {
             default:
                 System.out.println("Command Type Could Not Be Resolved");
                 break;
+
         }
+
+
     }
 }

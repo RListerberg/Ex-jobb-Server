@@ -1,6 +1,8 @@
 .idea
 lib
 quizmaniacsServer.iml
+persistence.xml
+out/
 Ex-jobb-Server.iml
-src/META-INF/*
-out
+
+
