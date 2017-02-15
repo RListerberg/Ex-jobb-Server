@@ -56,6 +56,25 @@ public class CommandHandler {
                 controller.getRooms().add(new Room(newRoom, counter));
                 updateLobbyList();
                 break;
+            case PLAYERLEAVE:
+                System.out.println("RECEIVED: PLAYERLEAVE");
+                break;
+            case PLAYERJOIN:
+                System.out.println("RECEIVED: PLAYERJOIN");
+                SimpleRoom selectedRoom = gson.fromJson(command.data, SimpleRoom.class);
+                for (int i = 0; i < controller.getRooms().size(); i++) {
+
+                    if (controller.getRooms().get(i).id == selectedRoom.getId() && !user.inRoom){
+                        controller.getRooms().get(i).users.add(user);
+                        user.inRoom = true;
+
+                        System.out.println("USER CONNECTED: " + user.inRoom);
+                        System.out.println("USERS ROOM: " + selectedRoom.getName());
+                        break;
+                    }
+
+                }
+                break;
             default:
                 System.out.println("Command Type Could Not Be Resolved");
                 break;
