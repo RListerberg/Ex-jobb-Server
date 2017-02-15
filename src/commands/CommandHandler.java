@@ -36,25 +36,44 @@ public class CommandHandler {
         Command command = parser.parse(message);
         switch (command.type) {
             case SETNICK:
-                System.out.println("RECIVED: SETNICK");
+                System.out.println("RECEIVED: SETNICK");
                 setNickname(command.data);
                 updateNickname(command.data);
                 break;
             case GETCATEGORIES:
-                System.out.println("RECIEVED: GETCATEGORIES");
+                System.out.println("RECEIVED: GETCATEGORIES");
                 List categoryList = jpqlCommands.getCategoryNames();
                 System.out.println("CATEGORIES: " + categoryList);
                 break;
             case GETLOBBYLIST:
-                System.out.println("RECIVED: GETLOBBYLIST");
+                System.out.println("RECEIVED: GETLOBBYLIST");
                 updateLobbyList();
                 break;
             case CREATEROOM:
                 counter++;
-                System.out.println("RECIEVED: CREATEROOM");
+                System.out.println("RECEIVED: CREATEROOM");
                 SimpleRoom newRoom = gson.fromJson(command.data, SimpleRoom.class);
                 controller.getRooms().add(new Room(newRoom, counter));
                 updateLobbyList();
+                break;
+            case PLAYERLEAVE:
+                System.out.println("RECEIVED: PLAYERLEAVE");
+                break;
+            case PLAYERJOIN:
+                System.out.println("RECEIVED: PLAYERJOIN");
+                SimpleRoom selectedRoom = gson.fromJson(command.data, SimpleRoom.class);
+                for (int i = 0; i < controller.getRooms().size(); i++) {
+
+                    if (controller.getRooms().get(i).id == selectedRoom.getId() && !user.inRoom){
+                        controller.getRooms().get(i).users.add(user);
+                        user.inRoom = true;
+
+                        System.out.println("USER CONNECTED: " + user.inRoom);
+                        System.out.println("USERS ROOM: " + selectedRoom.getName());
+                        break;
+                    }
+
+                }
                 break;
             default:
                 System.out.println("Command Type Could Not Be Resolved");

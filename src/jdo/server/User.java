@@ -16,6 +16,7 @@ public class User {
     public DataHandler dataHandler;
     public boolean inRoom = false;
 
+
     public User(Socket socket, Controller controller) throws IOException {
         this.socket = socket;
         this.dataHandler = new DataHandler(socket, this, controller);
