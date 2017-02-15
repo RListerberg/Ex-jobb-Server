@@ -34,19 +34,19 @@ public class CommandHandler {
         Command command = parser.parse(message);
         switch (command.type) {
             case SETNICK:
-                System.out.println("RECIVED: SETNICK");
+                System.out.println("RECEIVED: SETNICK");
                 user.setNickname(command.data);
                 System.out.println(user.nickname);
                 break;
 
 	        case GETCATEGORIES:
-                System.out.println("RECIEVED: GETCATEGORIES");
+                System.out.println("RECEIVED: GETCATEGORIES");
                 List categoryList = jpqlCommands.getCategoryNames();
                 System.out.println("CATEGORIES: " + categoryList);
                 break;
 
             case GETLOBBYACT:
-                System.out.println("RECIVED: GETLOBBYACT");
+                System.out.println("RECEIVED: GETLOBBYACT");
                 controller.getRooms().add(new Room("Test", 0, 4));
                 user.dataHandler.send(commandMaker.makeDrawLobbyAct(controller.getRooms()));
                 System.out.println("SENT: DRAWLOBBYACT");
@@ -56,7 +56,7 @@ public class CommandHandler {
                 break;
 
             case CREATEROOM:
-                System.out.println("RECIEVED: CREATEROOM");
+                System.out.println("RECEIVED: CREATEROOM");
                 break;
 
 
