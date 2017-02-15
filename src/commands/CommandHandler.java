@@ -18,6 +18,7 @@ public class CommandHandler {
     Controller controller;
     JpqlCommands jpqlCommands = new JpqlCommands();
     Gson gson = new Gson();
+    int counter = 0;
 
     User user;
     Parser parser;
@@ -49,9 +50,10 @@ public class CommandHandler {
                 updateLobbyList();
                 break;
             case CREATEROOM:
+                counter++;
                 System.out.println("RECIEVED: CREATEROOM");
                 SimpleRoom newRoom = gson.fromJson(command.data, SimpleRoom.class);
-                controller.getRooms().add(new Room(newRoom));
+                controller.getRooms().add(new Room(newRoom, counter));
                 updateLobbyList();
                 break;
             default:
@@ -71,7 +73,7 @@ public class CommandHandler {
         System.out.println(user.socket.getPort() + " = " + user.nickname);
     }
 
-    public void updateNickname(String nick){
+    public void updateNickname(String nick) {
         user.dataHandler.send(commandMaker.makeUpdateNickCommand(nick));
         System.out.println("SENT: UPDATENICKNAME");
     }
