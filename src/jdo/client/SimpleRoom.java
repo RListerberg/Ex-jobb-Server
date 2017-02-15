@@ -15,7 +15,7 @@ public class SimpleRoom {
     List<String> categories;
 
     public SimpleRoom(Room room) {
-        this.id=room.id;
+        this.id = room.id;
         this.name = room.name;
         this.connectedPlayers = room.connectedPlayers;
         this.maxPlayers = room.maxPlayers;
