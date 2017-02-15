@@ -1,5 +1,8 @@
 package jdo.server;
 
+import jdo.client.SimpleRoom;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +24,14 @@ public class Room {
 
     public Room(List<String> categories) {
         this.categories = categories;
+    }
+
+    public Room(SimpleRoom sr) {
+        this.name = sr.getName();
+        this.maxPlayers = sr.getMaxPlayers();
+        this.connectedPlayers = sr.getConnectedPlayers();
+        this.categories = sr.getCategories();
+        this.users = new ArrayList<>();
     }
 
 
