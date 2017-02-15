@@ -10,23 +10,15 @@ import java.util.List;
  */
 public class Room {
 
+    public int id;
     public List<User> users;
     public String name;
     public int connectedPlayers;
     public int maxPlayers;
     public List<String> categories;
 
-    public Room(String roomName, int playersConnected, int maxPlayers) {
-        this.name = roomName;
-        this.connectedPlayers = playersConnected;
-        this.maxPlayers = maxPlayers;
-    }
-
-    public Room(List<String> categories) {
-        this.categories = categories;
-    }
-
-    public Room(SimpleRoom sr) {
+    public Room(SimpleRoom sr, int id) {
+        this.id=id;
         this.name = sr.getName();
         this.maxPlayers = sr.getMaxPlayers();
         this.connectedPlayers = sr.getConnectedPlayers();

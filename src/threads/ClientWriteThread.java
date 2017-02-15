@@ -32,7 +32,7 @@ public class ClientWriteThread implements Runnable {
     @Override
     public void run() {
         while (running) {
-            while (queuedMessages.size() != 0) {
+            while (queuedMessages.size() > 0) {
                 out.println(queuedMessages.get(0));
                 System.out.println("SENT: " + queuedMessages.get(0));
                 queuedMessages.remove(0);
