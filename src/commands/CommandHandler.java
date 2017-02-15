@@ -45,7 +45,7 @@ public class CommandHandler {
                 System.out.println("CATEGORIES: " + categoryList);
                 break;
             case GETLOBBYLIST:
-                System.out.println("RECIVED: UPDATELOBBYLIST");
+                System.out.println("RECIVED: GETLOBBYLIST");
                 updateLobbyList();
                 break;
             case CREATEROOM:
