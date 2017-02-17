@@ -50,6 +50,15 @@ public class CommandHandler {
                 System.out.println("RECEIVED: GETLOBBYLIST");
                 updateLobbyList();
                 break;
+            case GETROOM:
+                System.out.println("RECEIVED: GETROOM");
+                int roomId = Integer.parseInt(command.data);
+                for (int i = 0; i < controller.getRooms().size(); i++) {
+                    if (controller.getRooms().get(i).id == roomId) {
+                        user.dataHandler.send(commandMaker.makeUpdateRoomCommand(controller.getRooms().get(i)));
+                    }
+                }
+                break;
             case CREATEROOM:
                 counter++;
                 SimpleRoom newRoom = gson.fromJson(command.data, SimpleRoom.class);
@@ -58,6 +67,8 @@ public class CommandHandler {
                 break;
             case PLAYERLEAVE:
                 System.out.println("RECEIVED: PLAYERLEAVE");
+                playerLeave(gson.fromJson(command.data, SimpleRoom.class));
+                deleteRoomIfEmpty();
                 break;
             case PLAYERJOIN:
                 System.out.println("RECEIVED: PLAYERJOIN");
@@ -98,9 +109,14 @@ public class CommandHandler {
         System.out.println("SENT: UPDATENICKNAME");
     }
 
-    public void updateRoomName(SimpleRoom roomName) {
-        user.dataHandler.send(commandMaker.makeUpdateRoomNameCommand(roomName.getName()));
+    public void updateRoom(Room room) {
+        user.dataHandler.send(commandMaker.makeUpdateRoomCommand(room));
         System.out.println("SENT: UPDATEROOM");
+    }
+
+    public void updateRoomName(SimpleRoom simpleRoom) {
+        user.dataHandler.send(commandMaker.makeUpdateRoomNameCommand(simpleRoom.getName()));
+        System.out.println("SENT: UPDATEROOMNAME");
     }
 
     public void playerLeave(SimpleRoom room) {

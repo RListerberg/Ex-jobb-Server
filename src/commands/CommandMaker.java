@@ -23,8 +23,8 @@ public class CommandMaker {
         return stringCommand;
     }
 
-    public String makeUpdateRoomNameCommand(String roomName){
-        Command command = new Command(CommandType.UPDATEROOM, roomName);
+    public String makeUpdateRoomNameCommand(String roomName) {
+        Command command = new Command(CommandType.UPDATEROOMNAME, roomName);
         String stringCommand = gson.toJson(command);
         System.out.println("MADE: " + stringCommand);
         return stringCommand;
@@ -36,6 +36,13 @@ public class CommandMaker {
             simpleRooms.add(new SimpleRoom(rooms.get(i)));
         }
         Command command = new Command(CommandType.UPDATELOBBYLIST, gson.toJson(simpleRooms));
+        String stringCommand = gson.toJson(command);
+        System.out.println("MADE: " + stringCommand);
+        return stringCommand;
+    }
+
+    public String makeUpdateRoomCommand(Room room) {
+        Command command = new Command(CommandType.UPDATEROOM, gson.toJson(new SimpleRoom(room)));
         String stringCommand = gson.toJson(command);
         System.out.println("MADE: " + stringCommand);
         return stringCommand;
