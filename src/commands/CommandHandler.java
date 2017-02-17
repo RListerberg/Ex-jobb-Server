@@ -64,7 +64,7 @@ public class CommandHandler {
                 SimpleRoom selectedRoom = gson.fromJson(command.data, SimpleRoom.class);
                 for (int i = 0; i < controller.getRooms().size(); i++) {
 
-                    if (controller.getRooms().get(i).id == selectedRoom.getId() && !user.inRoom){
+                    if (controller.getRooms().get(i).id == selectedRoom.getId() && !user.inRoom) {
                         controller.getRooms().get(i).users.add(user);
                         user.inRoom = true;
 
@@ -95,6 +95,35 @@ public class CommandHandler {
     public void updateNickname(String nick) {
         user.dataHandler.send(commandMaker.makeUpdateNickCommand(nick));
         System.out.println("SENT: UPDATENICKNAME");
+    }
+
+    public void playerLeave(SimpleRoom room) {
+        for (int i = 0; i < controller.getRooms().size(); i++) {
+            if (controller.getRooms().get(i).id == room.getId() && user.inRoom) {
+                for (int j = 0; j < controller.getRooms().get(i).connectedPlayers; j++) {
+                    if (controller.getRooms().get(i).users.get(j).socket.getPort() == user.socket.getPort()) {
+                        controller.getRooms().get(i).users.remove(j);
+                        user.inRoom = false;
+                        controller.getRooms().get(i).connectedPlayers--;
+                    }
+                }
+            }
+        }
+    }
+
+    public void deleteRoomIfEmpty() {
+        int indexOnEmptyRoom = 0;
+        boolean shouldRemove = false;
+        for (int i = 0; i < controller.getRooms().size(); i++) {
+            if (controller.getRooms().get(i).connectedPlayers == 0) {
+                indexOnEmptyRoom = i;
+                shouldRemove = true;
+                break;
+            }
+        }
+        if (shouldRemove) {
+            controller.getRooms().remove(indexOnEmptyRoom);
+        }
     }
 
 }
