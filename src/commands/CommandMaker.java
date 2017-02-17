@@ -23,6 +23,13 @@ public class CommandMaker {
         return stringCommand;
     }
 
+    public String makeUpdateRoomNameCommand(String roomName){
+        Command command = new Command(CommandType.UPDATEROOM, roomName);
+        String stringCommand = gson.toJson(command);
+        System.out.println("MADE: " + stringCommand);
+        return stringCommand;
+    }
+
     public String makeUpdateLobbyList(List<Room> rooms) {
         List<SimpleRoom> simpleRooms = new ArrayList<>();
         for (int i = 0; i < rooms.size(); i++) {

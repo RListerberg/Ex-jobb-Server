@@ -23,6 +23,7 @@ public class CommandHandler {
     User user;
     Parser parser;
     CommandMaker commandMaker;
+    SimpleRoom testRoom;
 
 
     public CommandHandler(User user, Controller controller) {
@@ -51,10 +52,9 @@ public class CommandHandler {
                 break;
             case CREATEROOM:
                 counter++;
-                System.out.println("RECEIVED: CREATEROOM");
                 SimpleRoom newRoom = gson.fromJson(command.data, SimpleRoom.class);
+                updateRoomName(gson.fromJson(command.data, SimpleRoom.class));
                 controller.getRooms().add(new Room(newRoom, counter));
-                updateLobbyList();
                 break;
             case PLAYERLEAVE:
                 System.out.println("RECEIVED: PLAYERLEAVE");
@@ -62,12 +62,13 @@ public class CommandHandler {
             case PLAYERJOIN:
                 System.out.println("RECEIVED: PLAYERJOIN");
                 SimpleRoom selectedRoom = gson.fromJson(command.data, SimpleRoom.class);
+                updateRoomName(selectedRoom);
                 for (int i = 0; i < controller.getRooms().size(); i++) {
 
                     if (controller.getRooms().get(i).id == selectedRoom.getId() && !user.inRoom){
                         controller.getRooms().get(i).users.add(user);
                         user.inRoom = true;
-
+                        controller.getRooms().get(i).connectedPlayers++;
                         System.out.println("USER CONNECTED: " + user.inRoom);
                         System.out.println("USERS ROOM: " + selectedRoom.getName());
                         break;
@@ -95,6 +96,12 @@ public class CommandHandler {
     public void updateNickname(String nick) {
         user.dataHandler.send(commandMaker.makeUpdateNickCommand(nick));
         System.out.println("SENT: UPDATENICKNAME");
+    }
+
+
+    public void updateRoomName(SimpleRoom roomName){
+        user.dataHandler.send(commandMaker.makeUpdateRoomNameCommand(roomName.getName()));
+        System.out.println("SENT: UPDATEROOM");
     }
 
 }
