@@ -121,6 +121,8 @@ public class CommandHandler {
 
     public void playerLeave(SimpleRoom room) {
         for (int i = 0; i < controller.getRooms().size(); i++) {
+            System.out.println("ROOM: " + room.getId());
+            System.out.println("ROOMS CONTROLLER: " + controller.getRooms().get(i).id);
             if (controller.getRooms().get(i).id == room.getId() && user.inRoom) {
                 for (int j = 0; j < controller.getRooms().get(i).connectedPlayers; j++) {
                     if (controller.getRooms().get(i).users.get(j).socket.getPort() == user.socket.getPort()) {
