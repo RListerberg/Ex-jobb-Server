@@ -82,6 +82,15 @@ public class CommandHandler {
                 playerJoin(selectedRoom);
                 break;
 
+            case PLAYERREADY:
+                System.out.println("RECEIVED: PLAYERREADY");
+                playerReady();
+                break;
+
+            case PLAYERNOTREADY:
+                System.out.println("RECIEVED: PLAYERNOTREADY");
+                playerNotReady();
+
             default:
                 System.out.println("Command Type Could Not Be Resolved");
                 break;
@@ -114,7 +123,7 @@ public class CommandHandler {
         System.out.println("SENT: UPDATEROOMNAME");
     }
 
-    public void playerJoin(SimpleRoom simpleRoom){
+    public void playerJoin(SimpleRoom simpleRoom) {
         updateRoomName(simpleRoom);
         for (int i = 0; i < controller.getRooms().size(); i++) {
 
@@ -129,6 +138,15 @@ public class CommandHandler {
 
         }
     }
+
+    public void playerReady() {
+        user.playerData.setReady(true);
+    }
+
+    public void playerNotReady() {
+        user.playerData.setReady(false);
+    }
+
     public void playerLeave(SimpleRoom room) {
         for (int i = 0; i < controller.getRooms().size(); i++) {
             System.out.println("ROOM: " + room.getId());

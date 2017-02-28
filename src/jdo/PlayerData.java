@@ -14,4 +14,11 @@ public class PlayerData {
     public List<Boolean> categoriesAnsweredCorrectly;
 
 
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public void setReady(boolean ready) {
+        isReady = ready;
+    }
 }
