@@ -7,8 +7,10 @@ import jdo.server.User;
  */
 public class SimpleUser {
     String nickname;
+    int portNr;
 
     public SimpleUser(User user) {
-        this.nickname=user.nickname;
+        this.nickname = user.nickname;
+        this.portNr = user.socket.getPort();
     }
 }
