@@ -41,15 +41,18 @@ public class CommandHandler {
                 setNickname(command.data);
                 updateNickname(command.data);
                 break;
+
             case GETCATEGORIES:
                 System.out.println("RECEIVED: GETCATEGORIES");
                 List categoryList = jpqlCommands.getCategoryNames();
                 System.out.println("CATEGORIES: " + categoryList);
                 break;
+
             case GETLOBBYLIST:
                 System.out.println("RECEIVED: GETLOBBYLIST");
                 updateLobbyList();
                 break;
+
             case GETROOM:
                 System.out.println("RECEIVED: GETROOM");
                 int roomId = Integer.parseInt(command.data);
@@ -59,34 +62,26 @@ public class CommandHandler {
                     }
                 }
                 break;
+
             case CREATEROOM:
                 counter++;
                 SimpleRoom newRoom = gson.fromJson(command.data, SimpleRoom.class);
                 updateRoomName(gson.fromJson(command.data, SimpleRoom.class));
                 controller.getRooms().add(new Room(newRoom, counter));
                 break;
+
             case PLAYERLEAVE:
                 System.out.println("RECEIVED: PLAYERLEAVE");
                 playerLeave(gson.fromJson(command.data, SimpleRoom.class));
                 deleteRoomIfEmpty();
                 break;
+
             case PLAYERJOIN:
                 System.out.println("RECEIVED: PLAYERJOIN");
                 SimpleRoom selectedRoom = gson.fromJson(command.data, SimpleRoom.class);
-                updateRoomName(selectedRoom);
-                for (int i = 0; i < controller.getRooms().size(); i++) {
-
-                    if (controller.getRooms().get(i).id == selectedRoom.getId() && !user.inRoom) {
-                        controller.getRooms().get(i).users.add(user);
-                        user.inRoom = true;
-                        controller.getRooms().get(i).connectedPlayers++;
-                        System.out.println("USER CONNECTED: " + user.inRoom);
-                        System.out.println("USERS ROOM: " + selectedRoom.getName());
-                        break;
-                    }
-
-                }
+                playerJoin(selectedRoom);
                 break;
+
             default:
                 System.out.println("Command Type Could Not Be Resolved");
                 break;
@@ -119,15 +114,30 @@ public class CommandHandler {
         System.out.println("SENT: UPDATEROOMNAME");
     }
 
+    public void playerJoin(SimpleRoom simpleRoom){
+        updateRoomName(simpleRoom);
+        for (int i = 0; i < controller.getRooms().size(); i++) {
+
+            if (controller.getRooms().get(i).id == simpleRoom.getId() && !user.isInRoom()) {
+                controller.getRooms().get(i).users.add(user);
+                user.setInRoom(true);
+                controller.getRooms().get(i).connectedPlayers++;
+                System.out.println("USER CONNECTED: " + user.isInRoom());
+                System.out.println("USERS ROOM: " + simpleRoom.getName());
+                break;
+            }
+
+        }
+    }
     public void playerLeave(SimpleRoom room) {
         for (int i = 0; i < controller.getRooms().size(); i++) {
             System.out.println("ROOM: " + room.getId());
             System.out.println("ROOMS CONTROLLER: " + controller.getRooms().get(i).id);
-            if (controller.getRooms().get(i).id == room.getId() && user.inRoom) {
+            if (controller.getRooms().get(i).id == room.getId() && user.isInRoom()) {
                 for (int j = 0; j < controller.getRooms().get(i).connectedPlayers; j++) {
                     if (controller.getRooms().get(i).users.get(j).socket.getPort() == user.socket.getPort()) {
                         controller.getRooms().get(i).users.remove(j);
-                        user.inRoom = false;
+                        user.setInRoom(false);
                         controller.getRooms().get(i).connectedPlayers--;
                     }
                 }
