@@ -194,8 +194,9 @@ public class CommandHandler {
             for (int i = 0; i < room.users.size(); i++) {
                 room.users.get(i).dataHandler.send(commandMaker.makeUpdateRoomPlayerList(room.users));
             }
-        }catch (NullPointerException){
+        }catch (NullPointerException e){
             System.out.println("Room was not found");
+            e.printStackTrace();
         }
     }
 
