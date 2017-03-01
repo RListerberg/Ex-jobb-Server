@@ -67,7 +67,7 @@ public class CommandHandler {
                 counter++;
                 SimpleRoom newRoom = gson.fromJson(command.data, SimpleRoom.class);
                 updateRoomName(gson.fromJson(command.data, SimpleRoom.class));
-                Room currentRoom = new Room(newRoom,counter);
+                Room currentRoom = new Room(newRoom, counter);
                 currentRoom.users.add(user);
                 currentRoom.connectedPlayers++;
                 user.setInRoom(true);
@@ -139,18 +139,11 @@ public class CommandHandler {
                 controller.getRooms().get(i).connectedPlayers++;
                 System.out.println("USER CONNECTED: " + user.isInRoom());
                 System.out.println("USERS ROOM: " + simpleRoom.getName());
+                updateRoomPlayerList(getUsersesRoom(user));
                 break;
             }
 
         }
-    }
-
-    public void playerReady() {
-        user.playerData.setReady(true);
-    }
-
-    public void playerNotReady() {
-        user.playerData.setReady(false);
     }
 
     public void playerLeave(SimpleRoom room) {
@@ -163,10 +156,21 @@ public class CommandHandler {
                         controller.getRooms().get(i).users.remove(j);
                         user.setInRoom(false);
                         controller.getRooms().get(i).connectedPlayers--;
+                        updateRoomPlayerList(getUsersesRoom(user));
                     }
                 }
             }
         }
+    }
+
+    public void playerReady() {
+        user.playerData.setReady(true);
+        updateRoomPlayerList(getUsersesRoom(user));
+    }
+
+    public void playerNotReady() {
+        user.playerData.setReady(false);
+        updateRoomPlayerList(getUsersesRoom(user));
     }
 
     public void deleteRoomIfEmpty() {
@@ -182,5 +186,22 @@ public class CommandHandler {
         if (shouldRemove) {
             controller.getRooms().remove(indexOnEmptyRoom);
         }
+    }
+
+    public void updateRoomPlayerList(Room room) {
+        for (int i = 0; i < room.users.size(); i++) {
+            room.users.get(i).dataHandler.send(commandMaker.makeUpdateRoomPlayerList(room.users));
+        }
+    }
+
+    public Room getUsersesRoom(User user) {
+        for (int i = 0; i < controller.getRooms().size(); i++) {
+            for (int j = 0; j < controller.getRooms().get(i).users.size(); j++) {
+                if (controller.getRooms().get(i).users.get(j).socket.getPort() == user.socket.getPort()) {
+                    return controller.getRooms().get(i);
+                }
+            }
+        }
+        return null;
     }
 }
