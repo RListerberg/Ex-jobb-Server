@@ -63,12 +63,18 @@ public class CommandHandler {
                 counter++;
                 SimpleRoom newRoom = gson.fromJson(command.data, SimpleRoom.class);
                 updateRoomName(gson.fromJson(command.data, SimpleRoom.class));
-                controller.getRooms().add(new Room(newRoom, counter));
+                Room currentRoom = new Room(newRoom,counter);
+                currentRoom.users.add(user);
+                currentRoom.connectedPlayers++;
+                user.inRoom = true;
+                controller.getRooms().add(currentRoom);
+                updateLobbyList();
                 break;
             case PLAYERLEAVE:
                 System.out.println("RECEIVED: PLAYERLEAVE");
                 playerLeave(gson.fromJson(command.data, SimpleRoom.class));
                 deleteRoomIfEmpty();
+                updateLobbyList();
                 break;
             case PLAYERJOIN:
                 System.out.println("RECEIVED: PLAYERJOIN");
