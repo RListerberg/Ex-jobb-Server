@@ -70,7 +70,7 @@ public class CommandHandler {
                 Room currentRoom = new Room(newRoom,counter);
                 currentRoom.users.add(user);
                 currentRoom.connectedPlayers++;
-                user.inRoom = true;
+                user.setInRoom(true);
                 controller.getRooms().add(currentRoom);
                 updateLobbyList();
                 break;
