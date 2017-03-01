@@ -77,25 +77,30 @@ public class CommandHandler {
 
             case PLAYERLEAVE:
                 System.out.println("RECEIVED: PLAYERLEAVE");
-                playerLeave(gson.fromJson(command.data, SimpleRoom.class));
+                SimpleRoom simpleRoom = gson.fromJson(command.data, SimpleRoom.class);
+                playerLeave(simpleRoom);
                 deleteRoomIfEmpty();
                 updateLobbyList();
+                updateRoomPlayerList(getRoomWithSimpleRoom(simpleRoom));
                 break;
 
             case PLAYERJOIN:
                 System.out.println("RECEIVED: PLAYERJOIN");
                 SimpleRoom selectedRoom = gson.fromJson(command.data, SimpleRoom.class);
                 playerJoin(selectedRoom);
+                updateRoomPlayerList(getRoomWithSimpleRoom(selectedRoom));
                 break;
 
             case PLAYERREADY:
                 System.out.println("RECEIVED: PLAYERREADY");
                 playerReady();
+                updateRoomPlayerList(getUsersesRoom(user));
                 break;
 
             case PLAYERNOTREADY:
                 System.out.println("RECIEVED: PLAYERNOTREADY");
                 playerNotReady();
+                updateRoomPlayerList(getUsersesRoom(user));
 
             default:
                 System.out.println("Command Type Could Not Be Resolved");
@@ -139,7 +144,6 @@ public class CommandHandler {
                 controller.getRooms().get(i).connectedPlayers++;
                 System.out.println("USER CONNECTED: " + user.isInRoom());
                 System.out.println("USERS ROOM: " + simpleRoom.getName());
-                updateRoomPlayerList(getUsersesRoom(user));
                 break;
             }
 
@@ -156,7 +160,6 @@ public class CommandHandler {
                         controller.getRooms().get(i).users.remove(j);
                         user.setInRoom(false);
                         controller.getRooms().get(i).connectedPlayers--;
-                        updateRoomPlayerList(getUsersesRoom(user));
                     }
                 }
             }
@@ -165,12 +168,10 @@ public class CommandHandler {
 
     public void playerReady() {
         user.playerData.setReady(true);
-        updateRoomPlayerList(getUsersesRoom(user));
     }
 
     public void playerNotReady() {
         user.playerData.setReady(false);
-        updateRoomPlayerList(getUsersesRoom(user));
     }
 
     public void deleteRoomIfEmpty() {
@@ -200,6 +201,15 @@ public class CommandHandler {
                 if (controller.getRooms().get(i).users.get(j).socket.getPort() == user.socket.getPort()) {
                     return controller.getRooms().get(i);
                 }
+            }
+        }
+        return null;
+    }
+
+    public Room getRoomWithSimpleRoom(SimpleRoom simpleRoom) {
+        for (int i = 0; i < controller.getRooms().size(); i++) {
+            if (controller.getRooms().get(i).id == simpleRoom.getId()) {
+                return controller.getRooms().get(i);
             }
         }
         return null;
