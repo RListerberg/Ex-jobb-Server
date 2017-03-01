@@ -79,8 +79,8 @@ public class CommandHandler {
                 System.out.println("RECEIVED: PLAYERLEAVE");
                 SimpleRoom simpleRoom = gson.fromJson(command.data, SimpleRoom.class);
                 playerLeave(simpleRoom);
-                deleteRoomIfEmpty();
                 updateLobbyList();
+                deleteRoomIfEmpty();
                 updateRoomPlayerList(getRoomWithSimpleRoom(simpleRoom));
                 break;
 
@@ -190,8 +190,12 @@ public class CommandHandler {
     }
 
     public void updateRoomPlayerList(Room room) {
-        for (int i = 0; i < room.users.size(); i++) {
-            room.users.get(i).dataHandler.send(commandMaker.makeUpdateRoomPlayerList(room.users));
+        try{
+            for (int i = 0; i < room.users.size(); i++) {
+                room.users.get(i).dataHandler.send(commandMaker.makeUpdateRoomPlayerList(room.users));
+            }
+        }catch (NullPointerException){
+            System.out.println("Room was not found");
         }
     }
 
