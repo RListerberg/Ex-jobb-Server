@@ -2,7 +2,9 @@ package commands;
 
 import com.google.gson.Gson;
 import jdo.client.SimpleRoom;
+import jdo.client.SimpleUser;
 import jdo.server.Room;
+import jdo.server.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,17 @@ public class CommandMaker {
             simpleRooms.add(new SimpleRoom(rooms.get(i)));
         }
         Command command = new Command(CommandType.UPDATELOBBYLIST, gson.toJson(simpleRooms));
+        String stringCommand = gson.toJson(command);
+        System.out.println("MADE: " + stringCommand);
+        return stringCommand;
+    }
+
+    public String makeUpdateRoomPlayerList(List<User> users) {
+        List<SimpleUser> simpleUsers = new ArrayList<>();
+        for (int i = 0; i < users.size(); i++) {
+            simpleUsers.add(new SimpleUser(users.get(i)));
+        }
+        Command command = new Command(CommandType.UPDATEROOMPLAYERLIST, gson.toJson(simpleUsers));
         String stringCommand = gson.toJson(command);
         System.out.println("MADE: " + stringCommand);
         return stringCommand;
