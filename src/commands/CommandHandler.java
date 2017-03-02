@@ -190,11 +190,11 @@ public class CommandHandler {
     }
 
     public void updateRoomPlayerList(Room room) {
-        try{
+        try {
             for (int i = 0; i < room.users.size(); i++) {
                 room.users.get(i).dataHandler.send(commandMaker.makeUpdateRoomPlayerList(room.users));
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Room was not found");
             e.printStackTrace();
         }
@@ -218,5 +218,27 @@ public class CommandHandler {
             }
         }
         return null;
+    }
+
+    public boolean checkIfPlayersAreReady(User user) {
+        boolean flag = true;
+        Room room = getUsersesRoom(user);
+
+        for (int i = 0; i < room.users.size(); i++) {
+            if (!room.users.get(i).playerData.isReady) {
+                flag = false;
+            }
+
+        }
+        return flag;
+    }
+
+    public boolean checkIfNumbersOfPlayersisEnough(User user) {
+        Room room = getUsersesRoom(user);
+        return room.users.size() > 3;
+    }
+
+    public boolean checkIfRoomIsReady(User user) {
+        return checkIfNumbersOfPlayersisEnough(user) && checkIfPlayersAreReady(user);
     }
 }
