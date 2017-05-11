@@ -98,9 +98,15 @@ public class CommandHandler {
                 break;
 
             case PLAYERNOTREADY:
-                System.out.println("RECIEVED: PLAYERNOTREADY");
+                System.out.println("RECEIVED: PLAYERNOTREADY");
                 playerNotReady();
                 updateRoomPlayerList(getUsersesRoom(user));
+                break;
+
+            case PLAYERSENDMESSAGE:
+                System.out.println("RECEIVED: PLAYERSENDMESSAGE");
+                sendMessageToRoom(getUsersesRoom(user), command);
+                break;
 
             default:
                 System.out.println("Command Type Could Not Be Resolved");
@@ -209,6 +215,12 @@ public class CommandHandler {
             }
         }
         return null;
+    }
+
+    public void sendMessageToRoom(Room room, Command command) {
+        for (int i = 0; i < room.users.size(); i++) {
+            room.users.get(i).dataHandler.send(commandMaker.makeSendMessageCommand(command.data));
+        }
     }
 
     public Room getRoomWithSimpleRoom(SimpleRoom simpleRoom) {

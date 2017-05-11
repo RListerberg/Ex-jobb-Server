@@ -60,4 +60,11 @@ public class CommandMaker {
         System.out.println("MADE: " + stringCommand);
         return stringCommand;
     }
+
+    public String makeSendMessageCommand(String message) {
+        Command command = new Command(CommandType.SENDMESSAGE, message);
+        String stringCommand = gson.toJson(command);
+        System.out.println("MADE: " + stringCommand);
+        return stringCommand;
+    }
 }
