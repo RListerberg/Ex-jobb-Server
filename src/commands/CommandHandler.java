@@ -218,8 +218,9 @@ public class CommandHandler {
     }
 
     public void sendMessageToRoom(Room room, Command command) {
+        String newCommand = commandMaker.makeSendMessageCommand(user.nickname + ": " + command.data);
         for (int i = 0; i < room.users.size(); i++) {
-            room.users.get(i).dataHandler.send(commandMaker.makeSendMessageCommand(command.data));
+            room.users.get(i).dataHandler.send(newCommand);
         }
     }
 
