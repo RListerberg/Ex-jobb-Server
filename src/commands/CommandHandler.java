@@ -11,6 +11,8 @@ import jpa.JpqlCommands;
 
 import java.util.List;
 
+import javax.validation.constraints.Null;
+
 /**
  * Created by Meister on 2017-02-06.
  */
@@ -34,84 +36,92 @@ public class CommandHandler {
     }
 
     public void handle(String message) {
+
+
+
         Command command = parser.parse(message);
-        switch (command.type) {
-            case SETNICK:
-                System.out.println("RECEIVED: SETNICK");
-                setNickname(command.data);
-                updateNickname(command.data);
-                break;
+        try {
+            switch (command.type) {
+                case SETNICK:
+                    System.out.println("RECEIVED: SETNICK");
+                    setNickname(command.data);
+                    updateNickname(command.data);
+                    break;
 
-            case GETCATEGORIES:
-                System.out.println("RECEIVED: GETCATEGORIES");
-                List categoryList = jpqlCommands.getCategoryNames();
-                System.out.println("CATEGORIES: " + categoryList);
-                break;
+                case GETCATEGORIES:
+                    System.out.println("RECEIVED: GETCATEGORIES");
+                    List categoryList = jpqlCommands.getCategoryNames();
+                    System.out.println("CATEGORIES: " + categoryList);
+                    break;
 
-            case GETLOBBYLIST:
-                System.out.println("RECEIVED: GETLOBBYLIST");
-                updateLobbyList();
-                break;
+                case GETLOBBYLIST:
+                    System.out.println("RECEIVED: GETLOBBYLIST");
+                    updateLobbyList();
+                    break;
 
-            case GETROOM:
-                System.out.println("RECEIVED: GETROOM");
-                int roomId = Integer.parseInt(command.data);
-                for (int i = 0; i < controller.getRooms().size(); i++) {
-                    if (controller.getRooms().get(i).id == roomId) {
-                        user.dataHandler.send(commandMaker.makeUpdateRoomCommand(controller.getRooms().get(i)));
+                case GETROOM:
+                    System.out.println("RECEIVED: GETROOM");
+                    int roomId = Integer.parseInt(command.data);
+                    for (int i = 0; i < controller.getRooms().size(); i++) {
+                        if (controller.getRooms().get(i).id == roomId) {
+                            user.dataHandler.send(commandMaker.makeUpdateRoomCommand(controller.getRooms().get(i)));
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case CREATEROOM:
-                counter++;
-                SimpleRoom newRoom = gson.fromJson(command.data, SimpleRoom.class);
-                updateRoomName(gson.fromJson(command.data, SimpleRoom.class));
-                Room currentRoom = new Room(newRoom, counter);
-                currentRoom.users.add(user);
-                currentRoom.connectedPlayers++;
-                user.setInRoom(true);
-                controller.getRooms().add(currentRoom);
-                updateLobbyList();
-                break;
+                case CREATEROOM:
+                    counter++;
+                    SimpleRoom newRoom = gson.fromJson(command.data, SimpleRoom.class);
+                    updateRoomName(gson.fromJson(command.data, SimpleRoom.class));
+                    Room currentRoom = new Room(newRoom, counter);
+                    currentRoom.users.add(user);
+                    currentRoom.connectedPlayers++;
+                    user.setInRoom(true);
+                    controller.getRooms().add(currentRoom);
+                    updateLobbyList();
+                    break;
 
-            case PLAYERLEAVE:
-                System.out.println("RECEIVED: PLAYERLEAVE");
-                SimpleRoom simpleRoom = gson.fromJson(command.data, SimpleRoom.class);
-                playerLeave(simpleRoom);
-                updateLobbyList();
-                deleteRoomIfEmpty();
-                updateRoomPlayerList(getRoomWithSimpleRoom(simpleRoom));
-                break;
+                case PLAYERLEAVE:
+                    System.out.println("RECEIVED: PLAYERLEAVE");
+                    SimpleRoom simpleRoom = gson.fromJson(command.data, SimpleRoom.class);
+                    playerLeave(simpleRoom);
+                    updateLobbyList();
+                    deleteRoomIfEmpty();
+                    updateRoomPlayerList(getRoomWithSimpleRoom(simpleRoom));
+                    break;
 
-            case PLAYERJOIN:
-                System.out.println("RECEIVED: PLAYERJOIN");
-                SimpleRoom selectedRoom = gson.fromJson(command.data, SimpleRoom.class);
-                playerJoin(selectedRoom);
-                updateRoomPlayerList(getRoomWithSimpleRoom(selectedRoom));
-                break;
+                case PLAYERJOIN:
+                    System.out.println("RECEIVED: PLAYERJOIN");
+                    SimpleRoom selectedRoom = gson.fromJson(command.data, SimpleRoom.class);
+                    playerJoin(selectedRoom);
+                    updateRoomPlayerList(getRoomWithSimpleRoom(selectedRoom));
+                    break;
 
-            case PLAYERREADY:
-                System.out.println("RECEIVED: PLAYERREADY");
-                playerReady();
-                updateRoomPlayerList(getUsersesRoom(user));
-                break;
+                case PLAYERREADY:
+                    System.out.println("RECEIVED: PLAYERREADY");
+                    playerReady();
+                    updateRoomPlayerList(getUsersesRoom(user));
+                    break;
 
-            case PLAYERNOTREADY:
-                System.out.println("RECEIVED: PLAYERNOTREADY");
-                playerNotReady();
-                updateRoomPlayerList(getUsersesRoom(user));
-                break;
+                case PLAYERNOTREADY:
+                    System.out.println("RECEIVED: PLAYERNOTREADY");
+                    playerNotReady();
+                    updateRoomPlayerList(getUsersesRoom(user));
+                    break;
 
-            case PLAYERSENDMESSAGE:
-                System.out.println("RECEIVED: PLAYERSENDMESSAGE");
-                sendMessageToRoom(getUsersesRoom(user), command);
-                break;
+                case PLAYERSENDMESSAGE:
+                    System.out.println("RECEIVED: PLAYERSENDMESSAGE");
+                    sendMessageToRoom(getUsersesRoom(user), command);
+                    break;
 
-            default:
-                System.out.println("Command Type Could Not Be Resolved");
-                break;
+                default:
+                    System.out.println("Command Type Could Not Be Resolved");
+                    break;
 
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            System.out.println("Command Type is null");
         }
     }
 
@@ -218,7 +228,7 @@ public class CommandHandler {
     }
 
     public void sendMessageToRoom(Room room, Command command) {
-        String newCommand = commandMaker.makeSendMessageCommand(user.nickname + ": " + command.data);
+        String newCommand = commandMaker.makeSendMessageCommand(user.nickname + ": " + command.data + "\n");
         for (int i = 0; i < room.users.size(); i++) {
             room.users.get(i).dataHandler.send(newCommand);
         }
