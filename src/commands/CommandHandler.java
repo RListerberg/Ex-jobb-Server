@@ -36,9 +36,6 @@ public class CommandHandler {
     }
 
     public void handle(String message) {
-
-
-
         Command command = parser.parse(message);
         try {
             switch (command.type) {
@@ -79,15 +76,17 @@ public class CommandHandler {
                     user.setInRoom(true);
                     controller.getRooms().add(currentRoom);
                     updateLobbyList();
+                    updateRoomPlayerList(currentRoom);
                     break;
 
                 case PLAYERLEAVE:
                     System.out.println("RECEIVED: PLAYERLEAVE");
                     SimpleRoom simpleRoom = gson.fromJson(command.data, SimpleRoom.class);
                     playerLeave(simpleRoom);
+                    if(!deleteRoomIfEmpty()){
+                        updateRoomPlayerList(getRoomWithSimpleRoom(simpleRoom));
+                    }
                     updateLobbyList();
-                    deleteRoomIfEmpty();
-                    updateRoomPlayerList(getRoomWithSimpleRoom(simpleRoom));
                     break;
 
                 case PLAYERJOIN:
@@ -95,6 +94,7 @@ public class CommandHandler {
                     SimpleRoom selectedRoom = gson.fromJson(command.data, SimpleRoom.class);
                     playerJoin(selectedRoom);
                     updateRoomPlayerList(getRoomWithSimpleRoom(selectedRoom));
+                    updateLobbyList();
                     break;
 
                 case PLAYERREADY:
@@ -151,10 +151,13 @@ public class CommandHandler {
     }
 
     public void playerJoin(SimpleRoom simpleRoom) {
-        updateRoomName(simpleRoom);
-        for (int i = 0; i < controller.getRooms().size(); i++) {
 
+        updateRoomName(simpleRoom);
+
+        for (int i = 0; i < controller.getRooms().size(); i++) {
+            System.out.println("User.isinroom join: " + user.isInRoom());
             if (controller.getRooms().get(i).id == simpleRoom.getId() && !user.isInRoom()) {
+
                 controller.getRooms().get(i).users.add(user);
                 user.setInRoom(true);
                 controller.getRooms().get(i).connectedPlayers++;
@@ -171,8 +174,12 @@ public class CommandHandler {
             System.out.println("ROOM: " + room.getId());
             System.out.println("ROOMS CONTROLLER: " + controller.getRooms().get(i).id);
             if (controller.getRooms().get(i).id == room.getId() && user.isInRoom()) {
+                System.out.println("Found the selected Room when leaving");
                 for (int j = 0; j < controller.getRooms().get(i).connectedPlayers; j++) {
+                    System.out.println("ConnectedPlayers.getPort(): " + controller.getRooms().get(i).users.get(j).socket.getPort()
+                                        +"User.socket.getPort.1Player: " + user.socket.getPort());
                     if (controller.getRooms().get(i).users.get(j).socket.getPort() == user.socket.getPort()) {
+                        System.out.println("Port match is TRUE");
                         controller.getRooms().get(i).users.remove(j);
                         user.setInRoom(false);
                         controller.getRooms().get(i).connectedPlayers--;
@@ -190,7 +197,7 @@ public class CommandHandler {
         user.playerData.setReady(false);
     }
 
-    public void deleteRoomIfEmpty() {
+    public boolean deleteRoomIfEmpty() {
         int indexOnEmptyRoom = 0;
         boolean shouldRemove = false;
         for (int i = 0; i < controller.getRooms().size(); i++) {
@@ -203,6 +210,7 @@ public class CommandHandler {
         if (shouldRemove) {
             controller.getRooms().remove(indexOnEmptyRoom);
         }
+        return shouldRemove;
     }
 
     public void updateRoomPlayerList(Room room) {
