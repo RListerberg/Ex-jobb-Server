@@ -86,7 +86,8 @@ public class CommandHandler {
                     if(!deleteRoomIfEmpty()){
                         updateRoomPlayerList(getRoomWithSimpleRoom(simpleRoom));
                     }
-                    updateLobbyList();
+                    updateAllPlayerLobbyLists();
+//                    updateLobbyList();
                     break;
 
                 case PLAYERJOIN:
@@ -123,6 +124,11 @@ public class CommandHandler {
             e.printStackTrace();
             System.out.println("Command Type is null");
         }
+    }
+
+    public void updateAllPlayerLobbyLists(){
+        controller.getUserHandler().users.forEach(user -> user.dataHandler.send(commandMaker.makeUpdateLobbyList(controller.getRooms())));
+        System.out.println("SENT: UPDATEALLPLAYERLOBBYLISTS");
     }
 
     public void updateLobbyList() {
