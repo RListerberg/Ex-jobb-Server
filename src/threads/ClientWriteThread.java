@@ -8,9 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by LeoAsp on 2017-01-31.
- */
+
 public class ClientWriteThread implements Runnable {
     Socket socket;
     User user;

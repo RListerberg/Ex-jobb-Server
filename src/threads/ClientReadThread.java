@@ -9,9 +9,6 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Scanner;
 
-/**
- * Created by LeoAsp on 2017-01-30.
- */
 public class ClientReadThread implements Runnable {
     Controller controller;
     Socket socket;

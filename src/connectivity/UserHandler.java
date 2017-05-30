@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Meister on 2017-02-06.
- */
+
 public class UserHandler {
     private Controller controller;
     public List<User> users = new ArrayList<>();

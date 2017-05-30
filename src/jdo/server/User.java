@@ -7,9 +7,7 @@ import jdo.PlayerData;
 import java.io.IOException;
 import java.net.Socket;
 
-/**
- * Created by Meister on 2017-02-06.
- */
+
 public class User {
     Controller controller;
     public String nickname;

@@ -12,8 +12,9 @@ import entities.CategoriesEntity;
 import entities.QuestionsEntity;
 
 /**
- * Created by robin on 2017-02-07.
+ * Class for users creating questions
  */
+
 public class JpqlCommands {
 
 	QuestionsEntity questionEntity = new QuestionsEntity();

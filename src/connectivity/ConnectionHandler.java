@@ -4,9 +4,6 @@ import controller.Controller;
 
 import java.io.IOException;
 
-/**
- * Created by Meister on 2017-02-06.
- */
 public class ConnectionHandler {
     Controller controller;
     public ConnectionListener cl;

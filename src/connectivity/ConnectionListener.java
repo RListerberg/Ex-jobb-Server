@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- * Created by LeoAsp on 2017-01-30.
- */
+
 public class ConnectionListener implements Runnable {
     Controller controller;
     boolean running = true;

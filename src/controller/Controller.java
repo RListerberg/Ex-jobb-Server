@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Meister on 2017-02-06.
- */
+
 public class Controller {
     private ConnectionHandler connectionHandler;
     private UserHandler userHandler;

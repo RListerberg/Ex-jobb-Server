@@ -5,9 +5,7 @@ import jdo.client.SimpleRoom;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by LeoAsp on 2017-02-07.
- */
+
 public class Room {
 
     public int id;

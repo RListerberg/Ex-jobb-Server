@@ -8,9 +8,6 @@ import threads.ClientWriteThread;
 import java.io.IOException;
 import java.net.Socket;
 
-/**
- * Created by LeoAsp on 2017-01-31.
- */
 public class DataHandler {
     Controller controller;
     User user;

@@ -6,9 +6,7 @@ import jdo.server.User;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by LeoAsp on 2017-02-14.
- */
+
 public class SimpleRoom {
     int id;
     List<SimpleUser> users = new ArrayList<>();

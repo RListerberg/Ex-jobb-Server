@@ -9,9 +9,7 @@ import jdo.server.User;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by LeoAsp on 2017-02-07.
- */
+
 public class CommandMaker {
     Gson gson = new Gson();
 

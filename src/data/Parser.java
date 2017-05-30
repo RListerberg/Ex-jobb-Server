@@ -3,9 +3,7 @@ package data;
 import com.google.gson.Gson;
 import commands.Command;
 
-/**
- * Created by Meister on 2017-02-06.
- */
+
 public class Parser {
     Gson gson = new Gson();
 

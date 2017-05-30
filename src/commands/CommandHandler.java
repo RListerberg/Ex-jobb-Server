@@ -13,9 +13,7 @@ import java.util.List;
 
 import javax.validation.constraints.Null;
 
-/**
- * Created by Meister on 2017-02-06.
- */
+
 public class CommandHandler {
     Controller controller;
     JpqlCommands jpqlCommands = new JpqlCommands();
